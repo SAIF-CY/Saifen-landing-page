@@ -1,0 +1,262 @@
+@import "tailwindcss" source(none);
+@source "../index.html";
+
+/* ============================ TEMA ============================ */
+@theme {
+  --color-background: #05070b;
+  --color-foreground: #ece9e3;
+  --color-secondary: #0b0e14;
+  --color-muted-foreground: #8a8f99;
+  --color-accent: #ffcb00;
+  --color-accent-foreground: #0a0a0a;
+  --color-signal: #ffcb00;
+  --color-border: #1b2028;
+  --color-ring: #ffcb00;
+
+  --font-display: "Bebas Neue", "Noto Sans JP", "Arial Narrow", Impact, sans-serif;
+  --font-mono: "Space Mono", "Noto Sans JP", ui-monospace, "SFMono-Regular", monospace;
+  --font-sans: "Barlow", "Noto Sans JP", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --ease-poster: cubic-bezier(0.16, 1, 0.32, 1);
+}
+
+/* ============================ BASE ============================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--color-background);
+  }
+  body {
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+  section[id],
+  header[id] {
+    scroll-margin-top: 1.5rem;
+  }
+  img {
+    color: transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ============================ COMPONENTES ============================ */
+@layer components {
+  .poster-page {
+    background-color: var(--color-background);
+  }
+  .poster-shell {
+    position: relative;
+  }
+
+  /* ---------- intro ---------- */
+  .intro-stage {
+    background-color: var(--color-background);
+  }
+  /* cartaz centralizado nos dois eixos, sempre inteiro na tela (nunca corta)
+     e responsivo: cresce até o limite da viewport ou da largura */
+  .intro-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: clamp(0rem, 2vw, 1.5rem);
+    pointer-events: none;
+  }
+  .intro-media > img {
+    max-width: 100%;
+    max-height: 82svh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+  }
+  .intro-image {
+    animation: intro-reveal 2s var(--ease-poster) both;
+    will-change: transform, opacity;
+  }
+  .intro-vignette {
+    z-index: 1;
+    background-image:
+      linear-gradient(to top, var(--color-background) 0%, rgb(5 7 11 / 0.92) 16%, rgb(5 7 11 / 0.6) 32%, rgb(5 7 11 / 0.18) 50%, transparent 68%),
+      radial-gradient(150% 120% at 50% 45%, transparent 58%, rgb(5 7 11 / 0.3) 86%, rgb(5 7 11 / 0.75) 100%);
+  }
+  .intro-spotlight {
+    z-index: 1;
+    background-image: radial-gradient(46% 44% at 74% 32%, rgb(255 203 0 / 0.1), rgb(255 203 0 / 0) 72%);
+    mix-blend-mode: screen;
+  }
+  .intro-copy > * {
+    animation: rise-in 1.05s var(--ease-poster) both;
+  }
+  .intro-copy > *:nth-child(2) {
+    animation-delay: 0.14s;
+  }
+  .intro-scroll {
+    animation: nudge 2.8s ease-in-out infinite;
+  }
+  .intro-scroll:focus-visible {
+    outline: 1px solid var(--color-foreground);
+    outline-offset: 6px;
+    border-radius: 9999px;
+  }
+
+  /* ---------- texto japonês ---------- */
+  .jp {
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    font-feature-settings: "palt";
+  }
+
+  /* ---------- bloco amarelo (DARK CONSENSUS) ---------- */
+  .consensus-block {
+    display: inline-block;
+    background: var(--color-accent);
+    color: var(--color-accent-foreground);
+    padding: 0.04em 0.16em 0.09em 0.1em;
+    margin-left: -0.1em;
+  }
+
+  /* ---------- header ---------- */
+  .brand-mark {
+    letter-spacing: 0.01em;
+    transition: color 0.25s ease;
+  }
+  .brand-mark:hover {
+    color: var(--color-accent);
+  }
+  .nav-link {
+    position: relative;
+    padding-bottom: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--color-muted-foreground);
+    transition: color 0.25s ease;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-poster);
+  }
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--color-foreground);
+  }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+  .nav-link:focus-visible {
+    outline: 1px solid var(--color-ring);
+    outline-offset: 5px;
+  }
+
+  /* ---------- texturas ---------- */
+  .dotted-field {
+    background-image: radial-gradient(rgb(236 233 227 / 0.14) 1px, transparent 1px);
+    background-size: 7px 7px;
+  }
+  .image-screen {
+    background-image:
+      repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.34) 0 1px, rgb(0 0 0 / 0) 1px 3px),
+      radial-gradient(120% 92% at 50% 40%, rgb(5 7 11 / 0.12) 20%, rgb(5 7 11 / 0.55) 72%, rgb(5 7 11 / 0.95) 100%);
+    mix-blend-mode: multiply;
+  }
+
+  /* ---------- atos ---------- */
+  .acts-grid > article {
+    position: relative;
+  }
+  .acts-grid > article::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    z-index: 2;
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-poster);
+  }
+  .acts-grid > article:hover::before,
+  .acts-grid > article:focus-within::before {
+    transform: scaleX(1);
+  }
+  .acts-grid article .mt-auto svg {
+    transition: transform 0.4s var(--ease-poster);
+  }
+  .acts-grid article:hover .mt-auto svg {
+    transform: translate(4px, -4px);
+  }
+  @media (min-width: 768px) {
+    .act-blade,
+    .act-beat,
+    .act-consensus {
+      grid-column: span 4 / span 4;
+    }
+    .act-blade,
+    .act-beat {
+      border-right: 1px solid var(--color-border);
+    }
+  }
+}
+
+/* ============================ ANIMAÇÕES ============================ */
+@keyframes intro-reveal {
+  from { opacity: 0; transform: scale(1.14); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes nudge {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, 9px); }
+}
+
+/* ============================ REVEAL NO SCROLL ============================ */
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.75s var(--ease-poster) var(--d, 0ms),
+    transform 0.75s var(--ease-poster) var(--d, 0ms);
+}
+.js-reveal [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
