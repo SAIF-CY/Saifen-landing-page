@@ -17,7 +17,7 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="preload" as="image" href="assets/intro-poster.jpg" fetchpriority="high">
 <link rel="preload" as="image" href="assets/fig01-presenca.jpg">
-<link rel="stylesheet" href="assets/styles-B71o8YZb.css?v=9">
+<link rel="stylesheet" href="assets/styles-B71o8YZb.css?v=10">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@500;700;900&display=swap">
@@ -34,8 +34,8 @@
     <div class="intro-copy relative z-10 mx-auto flex w-full max-w-[1440px] flex-col items-start px-5 pb-[12svh] sm:px-12 lg:px-20">
       <h1 class="font-display text-[3.3rem] leading-[0.84] uppercase text-foreground min-[375px]:text-[4rem] sm:text-[6.5rem] lg:text-[9rem] xl:text-[10.5rem]">SAIFEN<br><span class="text-signal">security</span></h1>
       <p class="mt-4 max-w-xs text-lg leading-snug text-foreground">Um app para proteger seu celular em caso de roubo ou furto.</p>
-      <a href="#contato" class="contact-cta mt-5">
-        Fale com a Saifen
+      <a href="#lista-de-espera" class="primary-cta mt-5">
+        Entre na lista de espera
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 7 10 10M17 7v10H7"></path></svg>
       </a>
     </div>
@@ -53,7 +53,7 @@
         <a href="#manifesto" class="nav-link">Manifesto</a>
         <a href="#atos" class="nav-link">Como funciona</a>
       </nav>
-      <a href="#contato" class="flex shrink-0 items-center gap-2 py-3 font-mono text-xs font-bold uppercase text-signal hover:underline">Contato <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-right" aria-hidden="true"><path d="m7 7 10 10"></path><path d="M17 7v10H7"></path></svg></a>
+      <a href="#lista-de-espera" class="flex shrink-0 items-center gap-2 py-3 font-mono text-xs font-bold uppercase text-signal hover:underline">Lista de espera <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 7 10 10M17 7v10H7"></path></svg></a>
     </header>
 
     <!-- ============================ HERO ============================ -->
@@ -163,15 +163,35 @@
       </div>
     </section>
 
-    <section id="contato" class="dotted-field grid gap-6 border-x border-b border-border px-5 py-12 sm:px-10 sm:py-16 lg:grid-cols-2 lg:items-end" aria-labelledby="contato-titulo">
-      <h2 id="contato-titulo" class="font-display text-5xl leading-[0.9] uppercase sm:text-7xl">Fale com<br>a Saifen<span class="text-accent">.</span></h2>
-      <div class="min-w-0 lg:justify-self-end">
-        <p class="mb-5 max-w-xs text-base leading-snug text-foreground">Quer conhecer o app ou conversar sobre o projeto? Escreva para o Thiago.</p>
-        <a class="contact-cta contact-email" href="mailto:thiagocorrea.ow@gmail.com?subject=Quero%20conhecer%20a%20Saifen">
-          thiagocorrea.ow@gmail.com
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10M7 17 17 7"></path></svg>
-        </a>
+    <section id="lista-de-espera" class="dotted-field grid gap-8 border-x border-b border-border px-5 py-12 sm:px-10 sm:py-16 lg:grid-cols-2 lg:items-center" aria-labelledby="lista-titulo">
+      <div>
+        <h2 id="lista-titulo" class="font-display text-4xl leading-[0.9] uppercase min-[375px]:text-5xl sm:text-7xl">Entre na<br>lista de espera<span class="text-accent">.</span></h2>
+        <p class="mt-4 max-w-xs text-lg leading-snug text-foreground">Receba um aviso quando a Saifen estiver disponível.</p>
       </div>
+      <form id="lista-form" action="https://api.web3forms.com/submit" method="post" class="waitlist-form min-w-0 border border-border bg-secondary p-4 sm:p-7 lg:w-full lg:max-w-md lg:justify-self-end" aria-labelledby="lista-titulo" aria-describedby="lista-uso">
+        <input type="hidden" name="access_key" value="952d6e47-a2d8-432d-b5f4-b4594c4c3c2b">
+        <input type="hidden" name="subject" value="Nova inscrição na lista de espera da Saifen">
+        <input type="checkbox" name="botcheck" hidden>
+
+        <fieldset class="grid min-w-0 gap-4">
+          <label for="lista-nome">Nome</label>
+          <input id="lista-nome" name="name" type="text" autocomplete="name" required maxlength="100" pattern=".*\S.*" title="Informe seu nome.">
+
+          <label for="lista-celular">Número de celular</label>
+          <input id="lista-celular" name="phone" type="tel" autocomplete="tel" required maxlength="24" pattern="\+?(?:[\(\) .\-]*[0-9]){8,15}[\(\) .\-]*" title="Use de 8 a 15 dígitos, incluindo o DDD." placeholder="Ex. (11) 91234-5678">
+
+          <label for="lista-email">E-mail</label>
+          <input id="lista-email" name="email" type="email" autocomplete="email" required maxlength="254">
+
+          <p id="lista-uso" class="text-sm leading-snug text-muted-foreground">O envio dos dados é processado pelo <a href="https://web3forms.com/privacy" class="underline underline-offset-4 hover:text-foreground">Web3Forms</a>.</p>
+          <button type="submit" class="primary-cta justify-self-start" disabled>
+            Entre na lista de espera
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg>
+          </button>
+        </fieldset>
+        <p id="lista-status" class="text-base leading-snug text-foreground" role="status"></p>
+        <noscript><p class="mt-3 text-sm">Ative o JavaScript para enviar sua inscrição.</p></noscript>
+      </form>
     </section>
 
     <footer class="flex flex-wrap items-center justify-between gap-x-5 gap-y-3 border-x border-b border-border px-5 py-7 font-mono text-xs uppercase text-muted-foreground sm:px-10">
@@ -181,6 +201,8 @@
     </footer>
   </div>
 </main>
+
+<script src="assets/waitlist.js" defer></script>
 
 <script>
   /* revelação no scroll (progressiva: sem JS tudo aparece) */
